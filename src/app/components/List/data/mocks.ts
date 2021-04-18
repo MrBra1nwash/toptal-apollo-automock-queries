@@ -1,8 +1,8 @@
-import { GET_ROCKET_INVENTORY } from "./get-characters";
+import { GET_CHARACTERS } from "./get-characters";
 
 export const createGetCharactersMock = () => ({
   request: {
-    query: GET_ROCKET_INVENTORY,
+    query: GET_CHARACTERS,
   },
   result: {
     data: {

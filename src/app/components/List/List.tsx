@@ -1,17 +1,13 @@
 import React, { FC } from "react";
-import { useGetCharacters } from "./data/get-characters";
+import { useGetCharacter } from "./data/get-character";
 
 const List: FC = () => {
-  const { data, loading } = useGetCharacters();
+  const { data, loading } = useGetCharacter();
   console.log("data", data);
+
   if (loading) return <div>Loading</div>;
-  return (
-    <ul>
-      {data?.characters.results.map(({ id, name }) => (
-        <li key={id}>{name}</li>
-      ))}
-    </ul>
-  );
+
+  return <h1>{data?.character.name}</h1>;
 };
 
 export default List;
