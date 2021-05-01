@@ -1,11 +1,11 @@
 import { buildClientSchema, printSchema } from "graphql";
 import React, { FC } from "react";
-import schemaJSON from "../schema.json";
+import schemaJSON from "../schema/schema-json.json";
 import { addMocksToSchema, IMocks } from "@graphql-tools/mock";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { SchemaLink } from "@apollo/client/link/schema";
-import { schemaString } from "../schema-string";
+import { schemaString } from "../schema/schema-string";
 
 interface Props {
   mockResolvers?: IMocks;
@@ -18,13 +18,13 @@ const AutoMockedProvider: FC<Props> = ({ children, mockResolvers }) => {
   );
 
   // 2) Make schema "executable"
-  const schema = makeExecutableSchema({
+  let schema = makeExecutableSchema({
     typeDefs: schemaString,
     // typeDefs: schemaSDL,
   });
 
   // 3) Apply mock resolvers to executable schema
-  addMocksToSchema({ schema, mocks: mockResolvers });
+  schema = addMocksToSchema({ schema, mocks: mockResolvers });
 
   // 4) Define ApolloClient (client variable used below)
   const client = new ApolloClient({
